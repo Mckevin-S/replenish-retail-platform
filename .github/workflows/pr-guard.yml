@@ -1,0 +1,42 @@
+name: pr-guard
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+  push:
+    paths: ["pr-guard/**"]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  tests:
+    name: Tests de pr-guard
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pr-guard
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: pr-guard/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - name: Le bundle commité est à jour
+        run: npm run build && git diff --exit-code dist/
+
+  review:
+    name: Revue automatique de la PR
+    if: github.event_name == 'pull_request'
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./pr-guard
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

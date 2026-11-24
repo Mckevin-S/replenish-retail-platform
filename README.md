@@ -51,7 +51,7 @@ data/{streaming,airflow,dbt,databricks}/  rpa/uipath/  infra/{compose,helm,terra
 
 | Lot | Contenu | Statut |
 |---|---|---|
-| L1 | Socle + pr-guard | à faire |
+| L1 | Socle + pr-guard | en cours – pr-guard et CI livrés |
 | L2 | Caisses, HDFS, streaming Spark | à faire |
 | L3 | Airflow, Snowflake, dbt, Elementary | à faire |
 | L4 | Prévision Databricks | à faire |
@@ -59,6 +59,17 @@ data/{streaming,airflow,dbt,databricks}/  rpa/uipath/  infra/{compose,helm,terra
 | L6 | EDI .NET + UiPath | à faire |
 | L7 | PWA React, BFF, Angular | à faire |
 | L8 | Agent IA, Kubernetes, Terraform, démo | à faire |
+
+## Démarrage rapide (lot 1)
+
+```bash
+cd pr-guard
+npm ci
+npm run typecheck && npm test   # 21 tests Vitest
+npm run build                    # dist/index.js utilisé par l'action
+```
+
+Voir [ADR 0001](docs/adr/0001-revue-automatique-des-pull-requests.md).
 
 ## Méthode
 
