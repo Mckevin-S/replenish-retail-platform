@@ -1,0 +1,13 @@
+.env
+*.env
+!.env.example
+node_modules/
+target/
+build/
+bin/
+obj/
+__pycache__/
+.venv/
+.idea/
+.vscode/
+coverage/

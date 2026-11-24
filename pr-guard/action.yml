@@ -1,0 +1,16 @@
+name: pr-guard
+description: Commente chaque pull request avec les règles du dépôt (titre, secrets, architecture, SQL, taille, tests).
+inputs:
+  github-token:
+    description: Jeton utilisé pour lire le diff et commenter la PR
+    required: true
+  max-added-lines:
+    description: Nombre de lignes ajoutées au-delà duquel la PR est signalée
+    required: false
+    default: "800"
+outputs:
+  errors:
+    description: Nombre d'erreurs détectées
+runs:
+  using: node20
+  main: dist/index.js
